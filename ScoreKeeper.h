@@ -26,7 +26,7 @@ public:
     unsigned long int getLines() { return lines; }
     unsigned long int getLevel() { return lines / 10 + 1; }
     unsigned long int getTotalTets() { return tets; }
-
+    
 private:
     unsigned long long int score = 0;
     unsigned long int tets = 0;

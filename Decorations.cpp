@@ -106,3 +106,10 @@ void Decorations::draw(sf::RenderWindow& window) {
 void Decorations::setFont(sf::Font font) {
     impl->font = font;
 }
+
+void Decorations::setScoreColor(sf::Color clr) {
+    impl->txtScore.setFillColor(clr);
+}
+void Decorations::setLevelColor(sf::Color clr) {
+    impl->txtLevel.setFillColor(clr);
+}

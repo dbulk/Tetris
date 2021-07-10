@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="HighScores.cpp" />
     <ClCompile Include="Pause.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="Decorations.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Decorations.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HighScores.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="ScoreKeeper.h" />
     <ClInclude Include="Tetromino.h" />

@@ -23,6 +23,9 @@ public:
     void draw(sf::RenderWindow& window);
 
     void setFont(sf::Font f);
+    void setScoreColor(sf::Color);
+    void setLevelColor(sf::Color);
+
 private:
     struct pimpl;
     std::unique_ptr<pimpl> impl;

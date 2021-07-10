@@ -53,7 +53,9 @@ Play::Play(Game* game) {
     impl->game = game;
     impl->game->audio.playloop("thememusic.wav", 0, 77);
 }
-Play::~Play() = default;
+Play::~Play() {
+    impl->game->highscores.appendScoresToFile(&impl->score);
+}
 
 
 
@@ -138,6 +140,7 @@ void Play::pimpl::input(const sf::Event& e) {
 void Play::pimpl::update(float t) {
     bool didAdd = handleMovement();
     if (didAdd) {
+        
         score.addTet();
         decorations.setNextPiece(tbag.get());
 
@@ -150,6 +153,18 @@ void Play::pimpl::update(float t) {
         else {
             game->audio.play(SOUND::DROP);
         }
+
+        decorations.setLevelColor(
+            score.getLevel() > game->highscores.getBestLevel() ?
+            sf::Color(255, 215, 0) :
+            sf::Color::White);
+        
+
+        decorations.setScoreColor(
+            score.getScore() > game->highscores.getBestScore() ?
+            sf::Color(255, 215, 0) :
+            sf::Color::White);
+        
     }
     gravity.addTime(t);
     leftmove.addTime(t);
