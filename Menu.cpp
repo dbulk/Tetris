@@ -20,13 +20,12 @@
 */
 
 struct Menu::pimpl {
-    sf::Font font;
-    unsigned int titlefontsize;
-    unsigned int optionfontsize;
+    unsigned int titlefontsize{ 150 };
+    unsigned int optionfontsize{ 60 };
 
-    sf::Text Title{ "TETRIS", font };
-    sf::Text Start{ "Start Game", font };
-    sf::Text Exit{ "Exit", font };
+    sf::Text Title;
+    sf::Text Start;
+    sf::Text Exit;
 
     bool inStart(const int x, const int y) {
         auto coord{ game->window.mapPixelToCoords({ x,y }) };
@@ -39,34 +38,34 @@ struct Menu::pimpl {
 
     Game* game;
     bool kms{ false };
+
+    void init() {
+
+        Title = sf::Text("TETRIS", game->font, titlefontsize);
+        Start = sf::Text("Start Game", game->font, optionfontsize);
+        Exit = sf::Text("Exit", game->font, optionfontsize);
+        
+        float margin = 50;
+        float y = height * .1f;
+        float x = width / 2.f;
+        Title.setOrigin(Title.getLocalBounds().width / 2.f, 0.f);
+        Title.setPosition({ x, y });
+        
+
+        y = height * .5f;
+        Start.setOrigin(Start.getLocalBounds().width / 2.f, 0.f);
+        Start.setPosition({ x, y });
+
+        y += Start.getLocalBounds().height + margin;
+        Exit.setOrigin(Exit.getLocalBounds().width / 2.f, 0.f);
+        Exit.setPosition({ x, y });
+    }
 };
 
 Menu::Menu(Game* game) {
     impl = std::make_unique<pimpl>();
     impl->game = game;
-
-    impl->font.loadFromFile("neuropol.ttf");
-    impl->titlefontsize = static_cast<int>(150);
-
-    float margin = 50;
-    float y = height * .1f;
-    float x = width / 2.f;
-    impl->Title.setCharacterSize(impl->titlefontsize);
-    impl->Title.setPosition({ x, y });
-    impl->Title.setOrigin(impl->Title.getLocalBounds().width / 2.f, 0.f);
-
-     y = height * .5f;
-
-    impl->optionfontsize = static_cast<int>(60);
-    impl->Start.setCharacterSize(impl->optionfontsize);
-    impl->Start.setOrigin(impl->Start.getLocalBounds().width / 2.f, 0.f);
-    impl->Start.setPosition({ x, y });
-    y += impl->Start.getLocalBounds().height + margin;
-    
-    impl->Exit.setCharacterSize(impl->optionfontsize);
-    impl->Exit.setOrigin(impl->Exit.getLocalBounds().width / 2.f, 0.f);
-    impl->Exit.setPosition({ x, y });
-    
+    impl->init();
 }
 
 Menu::~Menu() = default;

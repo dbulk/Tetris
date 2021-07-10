@@ -32,4 +32,5 @@ struct Game {
 
     // might move this to an assets class or something like that? I want font in here too?
     Audio audio;
+    sf::Font font;
 };

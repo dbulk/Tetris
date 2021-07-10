@@ -3,6 +3,9 @@
 #include <memory>
 
 struct Game;
+class Decorations;
+class Board;
+class Tetromino;
 
 namespace sf {
     class RenderWindow;
@@ -48,18 +51,17 @@ private:
     std::unique_ptr<pimpl> impl;
 };
 
-
-/*
 class Pause : public GameState
 {
-    Pause(Game*);
+public:
+    Pause(Game*, Board*, Decorations*, Tetromino*);
     ~Pause();
     void input(const sf::Event&) override;
     void update(float t) override;
     void draw(sf::RenderWindow&) override;
+    bool kms() override;
     
 private:
     struct pimpl;
     std::unique_ptr<pimpl> impl;
 };
-*/

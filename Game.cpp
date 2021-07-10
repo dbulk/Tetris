@@ -3,7 +3,8 @@
 #include <iostream>
 
 Game::Game() { 
-    //window.create(sf::VideoMode{ windowwidth, windowheight }, "tetris", sf::Style::Titlebar | sf::Style::Close);
+    font.loadFromFile("neuropol.ttf");
+
     window.create(sf::VideoMode{ static_cast<int>(width), static_cast<int>(height) }, "tetris");
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(false);
@@ -56,14 +57,15 @@ void Game::mainLoop() {
             currState()->input(event);
         }
         
+        if (window.hasFocus()) {
+            currState()->update(t);
+            window.clear(sf::Color(10,10,10));
+            currState()->draw(window);
+            window.display();
 
-        currState()->update(t);
-        window.clear(sf::Color(10,10,10));
-        currState()->draw(window);
-        window.display();
-
-        if (currState()->kms()) {
-            popState();
+            if (currState()->kms()) {
+                popState();
+            }
         }
     }
     window.close();

@@ -48,6 +48,7 @@ Play::Play(Game* game) {
     impl->tetromino.setType(impl->tbag.pop());
     impl->tetromino.resetPosition();
     impl->decorations.setNextPiece(impl->tbag.get());
+    impl->decorations.setFont(game->font);
 
     impl->game = game;
     impl->game->audio.playloop("thememusic.wav", 0, 77);
@@ -115,7 +116,11 @@ void Play::pimpl::input(const sf::Event& e) {
         case sf::Keyboard::Key::Space:
             doDrop = true;
             break;
+        case sf::Keyboard::Key::Escape:
+            game->audio.pause();
+            game->pushState(new Pause(game, &board, &decorations, &tetromino));
         }
+    
         break;
     case sf::Event::KeyReleased:
         // can these fail because of timing??
@@ -131,10 +136,6 @@ void Play::pimpl::input(const sf::Event& e) {
 }
 
 void Play::pimpl::update(float t) {
-    //if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)){leftmove.setActive(false);}
-    //if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)){rightmove.setActive(false);}
-
-
     bool didAdd = handleMovement();
     if (didAdd) {
         score.addTet();

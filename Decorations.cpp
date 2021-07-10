@@ -17,7 +17,7 @@ float margin = 50;
 
 struct Decorations::pimpl {
     sf::Font font;
-    unsigned int fontsize;
+    unsigned int fontsize{ 60 };
     
     sf::Text lblLevel{ "Level", font };
     sf::Text lblScore{ "Score", font };
@@ -66,13 +66,9 @@ Decorations::Decorations(ScoreKeeper* score, sf::FloatRect boardrect, float wind
     impl = std::make_unique<pimpl>();
 
     impl->score = score;
-    //impl->toprect = sf::FloatRect(boardrect.left, margin, boardrect.width, boardrect.top - margin * 2);
     impl->rightrect = sf::FloatRect(boardrect.left + boardrect.width + margin, boardrect.top, windowwidth-boardrect.width-margin*2, boardrect.height);
     impl->rectsize = rectsize;
 
-    impl->font.loadFromFile("neuropol.ttf");
-    impl->fontsize = static_cast<int>(60);
-    
     impl->inittext();
     
     sf::FloatRect nextrect{ impl->rightrect.left, impl->lblNext.getGlobalBounds().top + impl->lblNext.getGlobalBounds().height, impl->rightrect.width, rectsize * 3 };
@@ -104,4 +100,9 @@ void Decorations::draw(sf::RenderWindow& window) {
     }
     impl->tet->draw(window);
     
+}
+
+
+void Decorations::setFont(sf::Font font) {
+    impl->font = font;
 }
