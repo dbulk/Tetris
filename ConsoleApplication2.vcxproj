@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Pause.cpp" />
+    <ClCompile Include="HighScores.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="Decorations.cpp" />
     <ClCompile Include="Game.cpp" />

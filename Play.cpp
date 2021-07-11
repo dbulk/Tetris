@@ -54,7 +54,7 @@ Play::Play(Game* game) {
     impl->game->audio.playloop("thememusic.wav", 0, 77);
 }
 Play::~Play() {
-    impl->game->highscores.appendScoresToFile(&impl->score);
+    impl->game->highscores.addGameToHighScores(&impl->score);
 }
 
 

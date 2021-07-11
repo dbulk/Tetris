@@ -19,6 +19,8 @@ public:
     virtual void update(float t) = 0;
     virtual void draw(sf::RenderWindow&) = 0; //todo: would be cool if draw was const...
     virtual bool kms() = 0; // a state can't pop itself, so it send a message?
+
+    virtual ~GameState() { };
 };
 
 class Play : public GameState

@@ -51,7 +51,7 @@ struct Decorations::pimpl {
 
         y += fontsize + margin*2;
         lblScore.setPosition(rightrect.left, y);
-        txtScore.setPosition(rightrect.left+rightrect.width-margin, y + fontsize*1.2);
+        txtScore.setPosition(rightrect.left+rightrect.width-margin, y + fontsize*1.2f);
     }
 
     std::unique_ptr<Tetromino> tet;

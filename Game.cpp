@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "GameState.h"
 #include <iostream>
 
 Game::Game() { 
@@ -8,7 +7,6 @@ Game::Game() {
     window.create(sf::VideoMode{ static_cast<int>(width), static_cast<int>(height) }, "tetris");
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(false);
-    
 }
 Game::~Game() {
     while (!statestack.empty()) {

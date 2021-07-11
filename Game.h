@@ -35,5 +35,5 @@ struct Game {
     Audio audio;
     sf::Font font;
 
-    HighScores highscores;
+    HighScores highscores=HighScores(this);
 };
