@@ -11,16 +11,16 @@
 #include <SFML/Window/Event.hpp>
 namespace {
     std::string maketimestring(int t) {
-        int days = t / (3600 * 24); t -= days;
-        int hours = t / 3600; t -= hours;
-        int minutes = t / 60; t -= minutes;
+        int days = t / (3600 * 24); t -= days * 3600 * 24;
+        int hours = t / 3600; t -= hours * 3600;
+        int minutes = t / 60; t -= minutes * 60;
         int seconds = t;
 
         std::string out;
-        if (days) { out += std::to_string(days) + " days "; }
-        if (hours) { out += std::to_string(hours) + " hours "; }
-        if (minutes) { out += std::to_string(minutes) + " minutes "; }
-        out += std::to_string(seconds) + " seconds";
+        if (days) { out += std::to_string(days) + " d "; }
+        if (hours) { out += std::to_string(hours) + " h "; }
+        if (minutes) { out += std::to_string(minutes) + " m "; }
+        out += std::to_string(seconds) + " s";
 
         return out;
     }
@@ -53,6 +53,7 @@ struct HighScores::pimpl {
         txtlines.setString("Lines Cleared: " + std::to_string(totallines));
         txtgames.setString("Games Played: " + std::to_string(totalgames));
         txttime.setString("Time Played: " + maketimestring(totaltime));
+        txtBackToMenu.setString("Return to Menu");
 
 
         for (auto t : txts) {
@@ -62,9 +63,7 @@ struct HighScores::pimpl {
             t->setOrigin({ t->getLocalBounds().width / 2,t->getLocalBounds().height / 2 });
             y += 200;
         }
-
-        // number of games...
-
+        txtBackToMenu.setPosition({ x,y });
     }
 
     sf::Text txtscore;
@@ -74,15 +73,17 @@ struct HighScores::pimpl {
     sf::Text txtlines;
     sf::Text txttime;
     sf::Text txtgames;
+    sf::Text txtBackToMenu;
+    std::vector<sf::Text*> txts{ &txtscore, &txtlevel, &txttets, &txtlines, &txttime, &txtgames, &txtBackToMenu };
 
-
-    std::vector<sf::Text*> txts{ &txtscore, &txtlevel, &txttets, &txtlines, &txttime, &txtgames };
+    Game *game;
 };
 
 
 HighScores::HighScores(Game* game) {
     impl = std::make_unique<pimpl>();
     impl->readFile();
+    impl->game = game;
     if (!game->font.getInfo().family.empty() ) {
         impl->init(game->font);
     }    
@@ -103,8 +104,28 @@ void HighScores::addGameToHighScores(ScoreKeeper* sc) {
 unsigned long long int HighScores::getBestScore() const noexcept { return impl->bestscore; };
 unsigned long long int HighScores::getBestLevel() const noexcept { return impl->bestlevel; };
 void HighScores::input(const sf::Event& event) {
+    auto& txt = impl->txtBackToMenu;
+
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
         impl->kms = true;
+    }
+    else if (event.type == sf::Event::MouseMoved) {
+        auto coord{ impl->game->window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y}) };
+        if (txt.getGlobalBounds().contains(coord)) {
+            if (txt.getFillColor() == sf::Color::White) {
+                txt.setFillColor(sf::Color::Red);
+                impl->game->audio.play(SOUND::DROP);
+            }
+        }
+        else {
+            txt.setFillColor(sf::Color::White);
+        }
+    }
+    else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left) {
+        auto coord{ impl->game->window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y}) };
+        if (txt.getGlobalBounds().contains(coord)) {
+            impl->kms = true;
+        }
     }
 }
 void HighScores::update(float t) {}

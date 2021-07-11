@@ -25,15 +25,27 @@ struct Menu::pimpl {
 
     sf::Text Title;
     sf::Text Start;
+    sf::Text HighScores;
     sf::Text Exit;
+    std::vector<sf::Text*> txts{&Title, & Start, &HighScores, &Exit};
 
-    bool inStart(const int x, const int y) {
+
+    bool in(const int x, const int y, const sf::Text* txt) {
         auto coord{ game->window.mapPixelToCoords({ x,y }) };
-        return Start.getGlobalBounds().contains(coord);
+        return txt->getGlobalBounds().contains(coord);
     }
-    bool inExit(const int x, const int y) {
-        auto coord{ game->window.mapPixelToCoords({ x,y }) };
-        return Exit.getGlobalBounds().contains(coord);
+    void doMouseOver(sf::Event e) {
+        for (auto txt : txts) {
+            if (in(e.mouseMove.x, e.mouseMove.y, txt)) {
+                if (txt->getFillColor() == sf::Color::White) {
+                    txt->setFillColor(sf::Color::Red);
+                    game->audio.play(SOUND::DROP);
+                }
+            }
+            else {
+                txt->setFillColor(sf::Color::White);
+            }
+        }
     }
 
     Game* game;
@@ -43,6 +55,7 @@ struct Menu::pimpl {
 
         Title = sf::Text("TETRIS", game->font, titlefontsize);
         Start = sf::Text("Start Game", game->font, optionfontsize);
+        HighScores = sf::Text("High Scores", game->font, optionfontsize);
         Exit = sf::Text("Exit", game->font, optionfontsize);
         
         float margin = 50;
@@ -57,6 +70,10 @@ struct Menu::pimpl {
         Start.setPosition({ x, y });
 
         y += Start.getLocalBounds().height + margin;
+        HighScores.setOrigin(HighScores.getLocalBounds().width / 2.f, 0.f);
+        HighScores.setPosition({ x, y });
+
+        y += HighScores.getLocalBounds().height + margin;
         Exit.setOrigin(Exit.getLocalBounds().width / 2.f, 0.f);
         Exit.setPosition({ x, y });
     }
@@ -70,34 +87,23 @@ Menu::Menu(Game* game) {
 
 Menu::~Menu() = default;
 
+
+
 void Menu::input(const sf::Event& e) {
     if (e.type == sf::Event::MouseMoved) {
-        if (impl->inStart(e.mouseMove.x, e.mouseMove.y)){
-            if (impl->Start.getFillColor() == sf::Color::White) {
-                impl->Start.setFillColor(sf::Color::Red);
-                impl->game->audio.play(SOUND::DROP);
-            }
-        }
-        else
-        {
-            impl->Start.setFillColor(sf::Color::White);
-        }
-        if (impl->inExit(e.mouseMove.x, e.mouseMove.y)){
-            if (impl->Exit.getFillColor() == sf::Color::White) {
-                impl->Exit.setFillColor(sf::Color::Red);
-                impl->game->audio.play(SOUND::DROP);
-            }
-        }
-        else
-        {
-            impl->Exit.setFillColor(sf::Color::White);
-        }
+        impl->doMouseOver(e);
     }
     if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Button::Left) {
-        if (impl->inStart(e.mouseButton.x, e.mouseButton.y)) {
+
+        if (impl->in(e.mouseButton.x, e.mouseButton.y, &impl->Start)) {
             impl->game->pushState(new Play(impl->game));
+            impl->Start.setFillColor(sf::Color::White);
         }
-        else if (impl->inExit(e.mouseButton.x, e.mouseButton.y)) {
+        else if (impl->in(e.mouseButton.x, e.mouseButton.y, &impl->HighScores)) {
+            impl->game->pushState(new HighScores(impl->game));
+            impl->HighScores.setFillColor(sf::Color::White);
+        }
+        else if (impl->in(e.mouseButton.x, e.mouseButton.y, &impl->Exit)) {
             impl->kms = true;
         }
     }
@@ -106,6 +112,7 @@ void Menu::update(float t) {}
 void Menu::draw(sf::RenderWindow& w) {
     w.draw(impl->Title);
     w.draw(impl->Start);
+    w.draw(impl->HighScores);
     w.draw(impl->Exit);
 }
 bool Menu::kms() { return impl->kms; }
