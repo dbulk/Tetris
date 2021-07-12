@@ -11,8 +11,8 @@ struct Board::pimpl {
     std::vector<std::vector<sf::RectangleShape>> shapemap;
     sf::RectangleShape border;
 
-    float rectsize;
-    float outlinethickness;
+    float rectsize{ 0.f };
+    float outlinethickness{ 0.f };
     sf::Vector2f topleft;
 
     std::vector<size_t> linestoclear;
@@ -26,7 +26,7 @@ struct Board::pimpl {
 
                 s.setSize({ rectsize,rectsize });
                 s.setFillColor(sf::Color::Black);
-                sf::Vector2f pos{
+                const sf::Vector2f pos{
                     col * rectsize + topleft.x,
                     (20-row) * rectsize + topleft.y
                 };
@@ -123,10 +123,10 @@ bool Board::isEmpty(int x, int y) const {
     return !impl->hasColorUnsafe(static_cast<size_t>(x), static_cast<size_t>(y));
 }
 
-size_t Board::nLinesToClear() const {
+size_t Board::nLinesToClear() const noexcept {
     return impl->linestoclear.size();
 }
-sf::Vector2f Board::getTopLeft() const {
+sf::Vector2f Board::getTopLeft() const noexcept {
     return impl->topleft;
 }
 
@@ -134,7 +134,7 @@ void Board::clearEmptyLines() {
     impl->clearEmptyLines();
 }
 
-void Board::update() {
+void Board::update() noexcept {
     //impl->clearEmptyLines();
 }
 

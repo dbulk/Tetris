@@ -18,7 +18,7 @@ public:
     virtual void input(const sf::Event&) = 0;
     virtual void update(float t) = 0;
     virtual void draw(sf::RenderWindow&) = 0; //todo: would be cool if draw was const...
-    virtual bool kms() = 0; // a state can't pop itself, so it send a message?
+    virtual bool kms() const = 0; // a state can't pop itself, so it send a message?
 
     virtual ~GameState() { };
 };
@@ -31,7 +31,7 @@ public:
     void input(const sf::Event&) override;
     void update(float t) override;
     void draw(sf::RenderWindow&) override;
-    bool kms() override;
+    bool kms() const noexcept override;
 
 private:
     struct pimpl;
@@ -46,7 +46,7 @@ public:
     void input(const sf::Event&) override;
     void update(float t) override;
     void draw(sf::RenderWindow&) override;
-    bool kms() override;
+    bool kms() const noexcept override;
     
 private:
     struct pimpl;
@@ -58,10 +58,10 @@ class Pause : public GameState
 public:
     Pause(Game*, Board*, Decorations*, Tetromino*);
     ~Pause();
-    void input(const sf::Event&) override;
-    void update(float t) override;
+    void input(const sf::Event&) noexcept override;
+    void update(float t) noexcept override;
     void draw(sf::RenderWindow&) override;
-    bool kms() override;
+    bool kms() const noexcept override;
     
 private:
     struct pimpl;

@@ -31,7 +31,7 @@ struct Menu::pimpl {
 
 
     bool in(const int x, const int y, const sf::Text* txt) {
-        auto coord{ game->window.mapPixelToCoords({ x,y }) };
+        const auto coord{ game->window.mapPixelToCoords({ x,y }) };
         return txt->getGlobalBounds().contains(coord);
     }
     void doMouseOver(sf::Event e) {
@@ -48,7 +48,7 @@ struct Menu::pimpl {
         }
     }
 
-    Game* game;
+    Game* game{ nullptr };
     bool kms{ false };
 
     void init() {
@@ -60,11 +60,10 @@ struct Menu::pimpl {
         
         float margin = 50;
         float y = height * .1f;
-        float x = width / 2.f;
+        constexpr float x = width / 2.f;
         Title.setOrigin(Title.getLocalBounds().width / 2.f, 0.f);
         Title.setPosition({ x, y });
         
-
         y = height * .5f;
         Start.setOrigin(Start.getLocalBounds().width / 2.f, 0.f);
         Start.setPosition({ x, y });
@@ -110,11 +109,12 @@ void Menu::input(const sf::Event& e) {
 }
 void Menu::update(float t) {}
 void Menu::draw(sf::RenderWindow& w) {
+
     w.draw(impl->Title);
     w.draw(impl->Start);
     w.draw(impl->HighScores);
     w.draw(impl->Exit);
 }
-bool Menu::kms() { return impl->kms; }
+bool Menu::kms() const noexcept { return impl->kms; }
 
     

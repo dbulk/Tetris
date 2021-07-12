@@ -8,10 +8,10 @@
 #include <SFML/Graphics.hpp>
 
 struct Pause::pimpl {
-    Game* game;
-    Board* board;
-    Decorations* decorations;
-    Tetromino* tetromino;
+    Game* game{ nullptr };
+    Board* board{ nullptr };
+    Decorations* decorations{ nullptr };
+    Tetromino* tetromino{ nullptr };
     bool kms = false;
 
     sf::RectangleShape overlay;
@@ -31,7 +31,7 @@ Pause::Pause(Game* game, Board* board, Decorations* decorations, Tetromino* tetr
 
     impl->pausetext = sf::Text("Pause", impl->game->font);
     impl->pausetext.setCharacterSize(100);
-    auto s{ impl->pausetext.getLocalBounds() };
+    const auto s{ impl->pausetext.getLocalBounds() };
 
     impl->pausetext.setOrigin({ s.width / 2,s.height / 2 });
     impl->pausetext.setPosition({ width / 2,height / 2 });
@@ -39,13 +39,13 @@ Pause::Pause(Game* game, Board* board, Decorations* decorations, Tetromino* tetr
 }
 Pause::~Pause() = default;
 
-void Pause::input(const sf::Event& e) {
+void Pause::input(const sf::Event& e) noexcept {
     if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape) {
         impl->kms = true;
     }
 
 }
-void Pause::update(float t) {
+void Pause::update(float t) noexcept  {
 
     
 }
@@ -59,7 +59,7 @@ void Pause::draw(sf::RenderWindow& window) {
 }
 
 
-bool Pause::kms() {
+bool Pause::kms() const noexcept {
     if (impl->kms) {
         impl->game->audio.play();
     }

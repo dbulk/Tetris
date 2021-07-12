@@ -22,17 +22,17 @@ struct Game {
     Game();
     ~Game();
 
-    void popState();
+    void popState() noexcept;
     void pushState(GameState* state);
-    GameState* currState();
+    GameState* currState() const noexcept;
 
     void mainLoop();
 
     std::stack<GameState*> statestack;
     sf::RenderWindow window;
 
-    // might move this to an assets class or something like that? I want font in here too?
-    Audio audio;
+    // might move there to an asset class?
+    Audio audio{ width,height };
     sf::Font font;
 
     HighScores highscores=HighScores(this);

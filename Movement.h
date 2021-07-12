@@ -26,7 +26,7 @@ public:
     };
 
     void addTime(float t) noexcept { accumTime += t; };
-    void resetTime() { accumTime = 0.f; }
+    void resetTime() noexcept { accumTime = 0.f; }
 
 private:
     float accumTime{ 0.f };

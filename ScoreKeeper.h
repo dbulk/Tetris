@@ -4,17 +4,16 @@
 
 class ScoreKeeper {
 public:
-    void addTet() {
+    void addTet() noexcept {
         tets++;
     }
-    void addLines(size_t numlines) {
-        
+    void addLines(const size_t numlines) noexcept {
         score += static_cast<unsigned long long>(scoremult[numlines-1]) * static_cast<unsigned long long>(getLevel());
         lines += static_cast<unsigned long>(numlines);
     }
 
-    float getSpeed() {
-        auto lvl = getLevel();
+    float getSpeed() noexcept {
+        const auto lvl = getLevel();
         if (lvl <= 20) {
             return speeds[lvl-1];
         }
@@ -23,10 +22,10 @@ public:
         }
     }
 
-    unsigned long long int getScore() const { return score; }
-    unsigned long int getLines() const { return lines; }
-    unsigned long int getLevel() const { return lines / 10 + 1; }
-    unsigned long int getTotalTets() const { return tets; }
+    unsigned long long int getScore() const noexcept { return score; }
+    unsigned long int getLines() const noexcept { return lines; }
+    unsigned long int getLevel() const noexcept { return lines / 10 + 1; }
+    unsigned long int getTotalTets() const noexcept { return tets; }
 
     float getGameTime() const { return gametime.getElapsedTime().asSeconds(); }
 

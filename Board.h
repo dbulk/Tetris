@@ -18,9 +18,9 @@ public:
     
     bool isEmpty(int x, int y) const;
     bool isEmpty(sf::Vector2f) const;
-    size_t nLinesToClear() const;
+    size_t nLinesToClear() const noexcept;
 
-    void update();
+    void update() noexcept;
     void animateold(float proportion, sf::RenderWindow& window);
     void animate(float proportion);
     void draw(sf::RenderWindow& window);
@@ -28,7 +28,7 @@ public:
     void resetOutlineThickness();
     void clearEmptyLines();
 
-    sf::Vector2f getTopLeft() const;
+    sf::Vector2f getTopLeft() const noexcept;
 
 private:
     struct pimpl;

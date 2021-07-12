@@ -12,18 +12,20 @@ class HighScores : public GameState
 public:
     HighScores(Game*);
     ~HighScores();
+    HighScores(const HighScores&) {};
 
-    void addGameToHighScores(ScoreKeeper* sc);
+    void addGameToHighScores(const ScoreKeeper* const sc);
     unsigned long long int getBestScore() const noexcept;
     unsigned long long int getBestLevel() const noexcept;
     
-    void input(const sf::Event& event);
-    void update(float t);
-    void draw(sf::RenderWindow&);
+    void input(const sf::Event& event) override;
+    void update(float t) noexcept override;
+    void draw(sf::RenderWindow&) override;
 
-    bool kms();
+    bool kms() const noexcept override;
 
 private:
     struct pimpl;
-    std::unique_ptr<pimpl> impl;
+    //std::unique_ptr<pimpl> impl;
+    pimpl* impl;
 };

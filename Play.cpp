@@ -14,7 +14,7 @@
 
 
 struct Play::pimpl {
-    Game* game;
+    Game* game{ nullptr };
     
     Board board{ rectsize, rectOutlineThickness, { boardLeft, boardTop} };
     ActiveTetromino tetromino{ rectsize, rectOutlineThickness, sf::Color::Black, &board };
@@ -30,7 +30,7 @@ struct Play::pimpl {
     bool doGameOver{ false };
     float animclock = 0.f;
 
-    bool kms;
+    bool kms{ false };
 
     void input(const sf::Event& e);
     void animate(float t);
@@ -138,7 +138,7 @@ void Play::pimpl::input(const sf::Event& e) {
 }
 
 void Play::pimpl::update(float t) {
-    bool didAdd = handleMovement();
+    const bool didAdd = handleMovement();
     if (didAdd) {
         
         score.addTet();
@@ -241,6 +241,6 @@ void Play::pimpl::animate(float t) {
     }
 }
 
-bool Play::kms() {
+bool Play::kms() const noexcept {
     return impl->kms;
 }

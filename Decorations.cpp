@@ -55,9 +55,9 @@ struct Decorations::pimpl {
     }
 
     std::unique_ptr<Tetromino> tet;
-    ScoreKeeper* score;
+    ScoreKeeper* score{ nullptr };
     sf::FloatRect rightrect;
-    float rectsize;
+    float rectsize{ 0.f };
 
     std::vector<sf::Text*> allTexts{ &lblLevel,&lblScore,&lblNext,&lblLines,&lblPieces,&txtLevel,&txtScore,&txtLines,&txtPieces };
 };

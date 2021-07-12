@@ -55,7 +55,7 @@ namespace {
     }
 
     
-    void boardToWorld(sf::Vector2f topleft, float rectSize,sf::Vector2f& vert) {
+    void boardToWorld(sf::Vector2f topleft, float rectSize,sf::Vector2f& vert) noexcept {
         vert.x = vert.x * rectSize + topleft.x + rectSize/2;
         vert.y = (20 - vert.y) * rectSize + topleft.y + rectSize/2;
     }
@@ -67,7 +67,7 @@ TETROMINOTYPE RandomTetrominoGenerator::get(size_t n) {
 
     while (n >= bag.size()) {
         // add another bag of tetrominos to the stack
-        auto seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
+        const auto seed = static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count());
         std::vector<TETROMINOTYPE> newbag{ TETROMINOTYPE::I, TETROMINOTYPE::J, TETROMINOTYPE::L, TETROMINOTYPE::O, TETROMINOTYPE::S, TETROMINOTYPE::T, TETROMINOTYPE::Z };
         std::shuffle(newbag.begin(), newbag.end(), std::default_random_engine(seed));
         for (auto& t : newbag) {
@@ -78,7 +78,7 @@ TETROMINOTYPE RandomTetrominoGenerator::get(size_t n) {
     //return TETROMINOTYPE::I;
 }
 TETROMINOTYPE RandomTetrominoGenerator::pop() {
-    auto t{ get(0) };
+    const auto t{ get(0) };
     bag.pop_front();
     return t;
 }
@@ -189,7 +189,7 @@ struct ActiveTetromino::pimpl {
 
 ActiveTetromino::ActiveTetromino(float rectsize, float outlineThickness, sf::Color outlineColor, Board* board) {
     impl = std::make_unique<pimpl>();
-    sf::FloatRect frame{ board->getTopLeft(), {rectsize * 10.f, rectsize * 20.f} };
+    const sf::FloatRect frame{ board->getTopLeft(), {rectsize * 10.f, rectsize * 20.f} };
     init(rectsize, outlineThickness, outlineColor, frame);
     impl->Board = board;
 }
