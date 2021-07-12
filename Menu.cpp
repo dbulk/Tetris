@@ -20,7 +20,7 @@
 */
 
 struct Menu::pimpl {
-    unsigned int titlefontsize{ 150 };
+    unsigned int titlefontsize{ 200 };
     unsigned int optionfontsize{ 60 };
 
     sf::Text Title;

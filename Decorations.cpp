@@ -1,9 +1,9 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "decorations.h"
-#include "scorekeeper.h"
-#include "tetromino.h"
+#include "Decorations.h"
+#include "ScoreKeeper.h"
+#include "Tetromino.h"
 
 
 // What are we doing here?

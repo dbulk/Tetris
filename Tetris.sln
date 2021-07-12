@@ -7,16 +7,28 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tetris", "ConsoleApplicatio
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		debug_clang|x64 = debug_clang|x64
+		debug_clang|x86 = debug_clang|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		release_clang|x64 = release_clang|x64
+		release_clang|x86 = release_clang|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.debug_clang|x64.ActiveCfg = debug_clang|x64
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.debug_clang|x64.Build.0 = debug_clang|x64
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.debug_clang|x86.ActiveCfg = debug_clang|Win32
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.debug_clang|x86.Build.0 = debug_clang|Win32
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Debug|x64.ActiveCfg = Debug|x64
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Debug|x64.Build.0 = Debug|x64
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Debug|x86.ActiveCfg = Debug|Win32
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Debug|x86.Build.0 = Debug|Win32
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.release_clang|x64.ActiveCfg = release_clang|x64
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.release_clang|x64.Build.0 = release_clang|x64
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.release_clang|x86.ActiveCfg = release_clang|Win32
+		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.release_clang|x86.Build.0 = release_clang|Win32
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Release|x64.ActiveCfg = Release|x64
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Release|x64.Build.0 = Release|x64
 		{C0A8557E-A939-4F3A-B2C8-71FE437E4AED}.Release|x86.ActiveCfg = Release|Win32

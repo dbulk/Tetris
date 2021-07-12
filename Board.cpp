@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include "board.h"
+#include "Board.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
