@@ -4,7 +4,7 @@ This is just a toy project for me to learn about SFML. I don't recommend anyone 
 
 Please don't use this to judge my software development skills, this was not a serious project and much of the code is lifted from elsewhere. 
 
-I did particularly enjoy working on the piece rotation system, and incorporating some classic scoring metrics.
+I did particularly enjoy working on the piece rotation system, and incorporating some classic tetris scoring.
  
 I'm making it public in case anyone finds a snippet that they can use.
 
